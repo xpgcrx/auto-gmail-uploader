@@ -128,11 +128,13 @@ resource "google_cloudfunctions2_function" "function" {
 }
 
 # 6. Cloud Scheduler Configuration
-# Defines a periodic trigger (e.g., every hour) to execute the Cloud Function.
+# Defines a periodic trigger to execute the Cloud Function.
+# Runs every 15 minutes between 6:00 AM and 9:59 AM JST.
 resource "google_cloud_scheduler_job" "job" {
   name        = "${var.app_name}-scheduler"
-  description = "Hourly Gmail polling and upload (Terraform)"
-  schedule    = "0 * * * *" # Cron syntax: every hour on the hour
+  description = "Morning poll every 15 mins (Terraform)"
+  schedule    = "*/15 6-9 * * *" # Every 15 mins from 6:00 to 9:45
+  time_zone   = "Asia/Tokyo"
   region      = var.region
 
   http_target {

@@ -86,8 +86,10 @@ def main(event: Any = None, context: Any = None) -> str:
                 logger.info(f"Uploaded: {filename} (ID: {file_id})")
                 processed_files.append(filename)
 
-        # 4. Notify results via Discord (on success)
-        notifier.send_success(processed_files)
+        # 4. Notify results via Discord (only if files were uploaded)
+        if processed_files:
+            notifier.send_success(processed_files)
+        
         return "Success"
 
     except Exception as e:

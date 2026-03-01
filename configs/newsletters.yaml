@@ -1,0 +1,19 @@
+# メルマガごとの設定
+
+newsletters:
+  - name: "HAPA英会話"
+    query: "label:hapa英会話"
+    folder_id: "[REDACTED_FOLDER_ID]"
+    schedule: "daily"
+    footer_starts_with: "【HAPA英会話からのお知らせ】"
+  
+  - name: "ニックのひとこと英会話"
+    query: "label:ニックのひとこと英会話"
+    folder_id: "[REDACTED_FOLDER_ID]"
+    schedule: "daily"
+  
+  - name: "週刊Life is beautiful"
+    query: "label:週刊life-is-beautiful-まぐまぐ-"
+    folder_id: "[REDACTED_FOLDER_ID]"
+    schedule: "weekly"
+    footer_starts_with: "◇　◇　◇"

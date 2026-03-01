@@ -1,6 +1,15 @@
 # auto-gmail-uploader
 
-A workflow that automatically converts specific Gmail newsletters into Markdown format and uploads them to designated folders in Google Drive.
+A workflow that automatically converts specific Gmail newsletters into Markdown format
+and uploads them to designated folders in Google Drive.
+
+## Purpose
+
+The primary goal of this project is to automate the archiving of valuable newsletter content
+into Google Drive as machine-readable Markdown files. By converting HTML emails into
+structured Markdown, you can seamlessly leverage AI-powered tools such as
+**Google Gemini** or **NotebookLM** to summarize, analyze, and gain deeper insights
+from your accumulated subscription history.
 
 ## Features
 

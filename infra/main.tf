@@ -50,7 +50,11 @@ data "archive_file" "source" {
     filename = "src/notifier.py"
   }
   source {
-    content  = file("../configs/newsletters.yaml")
+    content = templatefile("../configs/newsletters.yaml", {
+      hapa_folder_id              = var.hapa_folder_id
+      nick_folder_id              = var.nick_folder_id
+      life_is_beautiful_folder_id = var.life_is_beautiful_folder_id
+    })
     filename = "configs/newsletters.yaml"
   }
 }

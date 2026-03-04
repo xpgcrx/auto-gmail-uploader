@@ -3,17 +3,17 @@
 newsletters:
   - name: "HAPA英会話"
     query: "label:hapa英会話"
-    folder_id: "[REDACTED_FOLDER_ID]"
+    folder_id: "${hapa_folder_id}"
     schedule: "daily"
     footer_starts_with: "【HAPA英会話からのお知らせ】"
   
   - name: "ニックのひとこと英会話"
     query: "label:ニックのひとこと英会話"
-    folder_id: "[REDACTED_FOLDER_ID]"
+    folder_id: "${nick_folder_id}"
     schedule: "daily"
   
   - name: "週刊Life is beautiful"
     query: "label:週刊life-is-beautiful-まぐまぐ-"
-    folder_id: "[REDACTED_FOLDER_ID]"
+    folder_id: "${life_is_beautiful_folder_id}"
     schedule: "weekly"
     footer_starts_with: "◇　◇　◇"

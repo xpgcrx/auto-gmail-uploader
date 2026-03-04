@@ -26,7 +26,26 @@ def test_file_exists_true(drive_client):
     assert exists is True
     mock_list.assert_called_with(
         q="name = 'test.md' and 'folder_id' in parents and trashed = false",
-        fields="files(id, name)"
+        fields="files(id, name)",
+        supportsAllDrives=True,
+        includeItemsFromAllDrives=True
+    )
+
+def test_file_exists_with_single_quote(drive_client):
+    """Test filename escaping for single quotes in query."""
+    client, mock_service = drive_client
+    mock_list = mock_service.files().list
+    mock_list.return_value.execute.return_value = {'files': []}
+
+    # Filename with a single quote
+    client.file_exists("It's a test.md", "folder_id")
+    
+    # Check if the single quote is escaped with a backslash
+    mock_list.assert_called_with(
+        q="name = 'It\\'s a test.md' and 'folder_id' in parents and trashed = false",
+        fields="files(id, name)",
+        supportsAllDrives=True,
+        includeItemsFromAllDrives=True
     )
 
 def test_file_exists_false(drive_client):
@@ -49,7 +68,8 @@ def test_upload_markdown(drive_client):
     
     assert file_id == 'new_file_id'
     mock_create.assert_called_once()
-    # Validate a part of the call arguments (body)
+    # Validate a part of the call arguments (body and supportsAllDrives)
     args, kwargs = mock_create.call_args
     assert kwargs['body']['name'] == 'test.md'
     assert kwargs['body']['parents'] == ['folder_id']
+    assert kwargs['supportsAllDrives'] is True

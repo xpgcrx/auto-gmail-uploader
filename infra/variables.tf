@@ -14,3 +14,21 @@ variable "app_name" {
   type        = string
   default     = "tf-auto-gmail-uploader"
 }
+
+variable "hapa_folder_id" {
+  description = "Folder ID for Hapa Eikaiwa"
+  type        = string
+  default     = ""
+}
+
+variable "nick_folder_id" {
+  description = "Folder ID for Nick Eikaiwa"
+  type        = string
+  default     = ""
+}
+
+variable "life_is_beautiful_folder_id" {
+  description = "Folder ID for Life is beautiful"
+  type        = string
+  default     = ""
+}

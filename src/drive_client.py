@@ -60,7 +60,8 @@ class DriveClient:
         file = self.service.files().create(
             body=file_metadata,
             media_body=media,
-            fields='id'
+            fields='id',
+            supportsAllDrives=True
         ).execute()
 
         return file.get('id', '')
@@ -73,7 +74,16 @@ class DriveClient:
         :param folder_id: Destination folder ID.
         :return: True if file exists, False otherwise.
         """
+        # Escape single quotes in filename for Google Drive API query
+        escaped_filename = filename.replace("'", "\\'")
+        
         # Query: matching name, matching parent, and not in trash
-        query = f"name = '{filename}' and '{folder_id}' in parents and trashed = false"
-        results = self.service.files().list(q=query, fields="files(id, name)").execute()
+        # supportsAllDrives and includeItemsFromAllDrives are required for Shared Drives
+        query = f"name = '{escaped_filename}' and '{folder_id}' in parents and trashed = false"
+        results = self.service.files().list(
+            q=query,
+            fields="files(id, name)",
+            supportsAllDrives=True,
+            includeItemsFromAllDrives=True
+        ).execute()
         return len(results.get('files', [])) > 0

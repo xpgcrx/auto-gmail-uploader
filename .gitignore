@@ -30,6 +30,9 @@ token.json
 .terraform/
 *.tfvars
 
+# Steering files
+.steering/
+
 # OS files
 .DS_Store
 Thumbs.db

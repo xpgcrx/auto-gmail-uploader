@@ -39,47 +39,7 @@ graph LR
 
 ## Setup Instructions
 
-Detailed steps can be found in [docs/setup/gcp-manual-setup.md](docs/setup/gcp-manual-setup.md).
-
-### 1. Google Cloud Manual Preparation
-
-- Create a project and enable APIs (Gmail, Drive, Secret Manager, Cloud Functions, Cloud Run, Cloud Build).
-- Configure the OAuth consent screen and add test users.
-- Create OAuth 2.0 Client ID (Desktop App) and download `client_secret.json`.
-
-### 2. Obtain Initial Token
-
-```bash
-# Place client_secret.json in the project root
-uv run scripts/get_refresh_token.py
-# Note down the displayed Refresh Token
-```
-
-### 3. Configure Environment Variables
-
-Create a `.env` file and fill in the tokens.
-
-```env
-GCP_CLIENT_ID="..."
-GCP_CLIENT_SECRET="..."
-GCP_REFRESH_TOKEN="..."
-DISCORD_WEBHOOK_URL="..."
-```
-
-### 4. Deploy Infrastructure (Terraform)
-
-```bash
-cd infra
-# Create terraform.tfvars (with project_id, region)
-terraform init
-terraform apply
-```
-
-### 5. Synchronize Secrets
-
-```bash
-uv run scripts/update_secrets.py
-```
+Detailed steps to set up and deploy this project can be found in [docs/setup/README.md](docs/setup/README.md).
 
 ## Development and Testing
 

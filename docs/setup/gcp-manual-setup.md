@@ -39,6 +39,8 @@ Configure the consent screen required to access personal Gmail data.
 5.  In the "**Test users**" section, click "**ADD USERS**" and enter **your own Gmail address** (where you receive the newsletters).
     - _Important: Skipping this will result in errors during authentication._
 6.  Click "Save and Continue" and then "Back to Dashboard".
+7.  **Crucial Step to Prevent Expiry**: On the OAuth consent screen dashboard, under "Publishing status", click "**PUBLISH APP**" to change the status from "Testing" to "In production".
+    - _Note: If left in "Testing", your refresh token will expire every 7 days, causing `invalid_grant` errors. Since this is an internal/personal tool, you do not need to go through Google's app verification process._
 
 ## Step 4: Creating OAuth 2.0 Credentials
 
@@ -59,3 +61,23 @@ Generate the credentials (keys) needed for the application to access Gmail.
 
 Once these steps are complete, proceed with Phase 1 (Environment Setup).
 After that, you will run a script to obtain a "Refresh Token" using this `client_secret.json` to be stored in Secret Manager.
+
+---
+
+## Troubleshooting
+
+### Error: `invalid_grant: Token has been expired or revoked.`
+
+This error occurs if your Google API refresh token has expired. This typically happens if the OAuth consent screen was left in "Testing" mode (which limits token validity to 7 days).
+
+**How to fix:**
+1. **Publish the App**: In the Google Cloud Console, go to **APIs & Services** > **OAuth consent screen** and click **PUBLISH APP** to change the status to "In production".
+2. **Re-authenticate locally**: Run the following command and authenticate in your browser to get a new token:
+   ```bash
+   uv run python scripts/get_refresh_token.py
+   ```
+3. **Update `.env`**: Copy the new "Refresh Token" output and update the `GCP_REFRESH_TOKEN` value in your `.env` file.
+4. **Update Secret Manager**: Run the script to push the new token to Google Cloud Secret Manager:
+   ```bash
+   uv run python scripts/update_secrets.py
+   ```

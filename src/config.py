@@ -35,6 +35,11 @@ class AppConfig:
         with open(self.config_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
             self._newsletters = data.get("newsletters", [])
+            
+            # Expand environment variables in folder_id (e.g., ${hapa_folder_id})
+            for newsletter in self._newsletters:
+                if 'folder_id' in newsletter:
+                    newsletter['folder_id'] = os.path.expandvars(newsletter['folder_id'])
 
     @property
     def newsletters(self) -> list[NewsletterConfig]:
